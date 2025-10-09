@@ -186,6 +186,24 @@ read if you used those and something break with a version upgrade you're on your
   .app-notification.frame border {
     border: none; }
 
+toast {
+  padding: 5px;
+  background-color: #252a3f;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
+  color: #C3C7D1; }
+  toast:backdrop {
+    background-image: none;
+    transition: 200ms ease-out; }
+  toast button {
+    padding: 2px; }
+  toast button.circular.flat.image-button {
+    padding: 2px; }
+    toast button.circular.flat.image-button:hover {
+      color: #fefefe;
+      outline-color: rgba(254, 254, 254, 0.3);
+      background-color: #ed254e;
+      text-shadow: none; }
+
 /***************
  * Base States *
  ***************/
@@ -220,15 +238,23 @@ read if you used those and something break with a version upgrade you're on your
     color: #fefefe;
     background-color: #c50ed2; }
 
-.view, iconview,
+.history-view,
+.view,
+iconview,
 textview > text {
   color: #C3C7D1;
   background-color: #181b28; }
-  .view:backdrop, iconview:backdrop,
+  .history-view:backdrop,
+  .view:backdrop,
+  iconview:backdrop,
   textview > text:backdrop {
     color: #a1a5b0;
     background-color: #1a1d2b; }
-  .view:selected:focus, iconview:selected:focus, .view:selected, iconview:selected,
+  .history-view:selected:focus, .history-view:selected,
+  .view:selected:focus,
+  iconview:selected:focus,
+  .view:selected,
+  iconview:selected,
   textview > text:selected:focus,
   textview > text:selected {
     border-radius: 3px; }
@@ -647,14 +673,18 @@ button.osd {
 button.suggested-action {
   border: none;
   box-shadow: none;
-  color: white;
+  color: #fff;
   border-radius: 6px;
   background: linear-gradient(45deg, #5433FF, #E948FF, #FF005B); }
+  button.suggested-action label {
+    color: #fff; }
   .selection-mode windowcontrols button, button.suggested-action.flat {
     box-shadow: none;
-    color: white;
+    color: #fff;
     border-radius: 6px;
     background: linear-gradient(45deg, #5433FF, #E948FF, #FF005B); }
+    .selection-mode windowcontrols button label, button.suggested-action.flat label {
+      color: #fff; }
   button.suggested-action:hover {
     color: white;
     outline-color: rgba(255, 255, 255, 0.3);
@@ -759,14 +789,18 @@ button.suggested-action {
 button.destructive-action {
   border: none;
   box-shadow: none;
-  color: white;
+  color: #fff;
   border-radius: 6px;
   background: linear-gradient(to right, #FF416C, #FF4B2B); }
+  button.destructive-action label {
+    color: #fff; }
   button.destructive-action.flat {
     box-shadow: none;
-    color: white;
+    color: #fff;
     border-radius: 6px;
     background: linear-gradient(45deg, #5433FF, #E948FF, #FF005B); }
+    button.destructive-action.flat label {
+      color: #fff; }
   button.destructive-action:hover {
     color: white;
     outline-color: rgba(255, 255, 255, 0.3);
@@ -997,7 +1031,7 @@ entry:only-child {
 modelbutton.flat,
 .menuitem.button.flat, modelbutton.flat:backdrop, modelbutton.flat:backdrop:hover,
 .menuitem.button.flat:backdrop,
-.menuitem.button.flat:backdrop:hover, calendar.button, calendar.button:hover, calendar.button:backdrop, calendar.button:disabled, button:link,
+.menuitem.button.flat:backdrop:hover, button:link,
 button:visited, button:link:hover, button:link:active, button:link:checked,
 button:visited:hover,
 button:visited:active,
@@ -1052,35 +1086,63 @@ notebook button, list button, .view button, iconview button, popover button {
 notebook .linked > button, list .linked > button, .view .linked > button, iconview .linked > button, popover .linked > button {
   box-shadow: none; }
 
+toggle-group {
+  padding: 3px; }
+  toggle-group toggle {
+    padding: 0 4px; }
+    toggle-group toggle:checked {
+      background-color: #c50ed2; }
+      toggle-group toggle:checked, toggle-group toggle:checked label {
+        color: #fefefe; }
+
+button.accent-button, button.accent-button:backdrop {
+  min-height: 24px;
+  min-width: 24px;
+  padding: 5px;
+  border-radius: 100%;
+  background: var(--accent-bg-color);
+  outline: none;
+  background-clip: content-box;
+  box-shadow: none;
+  border: none; }
+button.accent-button:hover {
+  box-shadow: 0 0 0 3px #212638; }
+button.accent-button:checked, button.accent-button:checked:backdrop {
+  box-shadow: 0 0 0 3px var(--accent-bg-color); }
+
 /************
  * Calendar *
  ***********/
 calendar {
   color: #C3C7D1;
-  border: 1px solid #090a0f; }
-  calendar:selected {
-    border-radius: 3px; }
-  calendar.header {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 0; }
-    calendar.header:backdrop {
-      border-color: rgba(0, 0, 0, 0.1); }
-  calendar.button {
-    color: rgba(195, 199, 209, 0.45); }
-    calendar.button:hover {
-      color: #C3C7D1; }
-    calendar.button:backdrop {
-      color: rgba(109, 112, 123, 0.45); }
-    calendar.button:disabled {
-      color: rgba(109, 112, 123, 0.45); }
-  calendar:indeterminate, calendar:indeterminate:backdrop {
-    color: alpha(currentColor,0.55); }
-  calendar.highlight, calendar.highlight:backdrop {
-    font-size: smaller;
-    color: #C3C7D1; }
-  calendar:backdrop {
-    color: #a1a5b0;
-    border-color: #0a0c11; }
+  border: 1px solid #090a0f;
+  font-feature-settings: "tnum"; }
+  calendar > header {
+    border-bottom: 1px solid #090a0f; }
+    calendar > header > button {
+      border: none;
+      box-shadow: none;
+      background: none;
+      border-radius: 0; }
+    calendar > header > button:backdrop {
+      background: none; }
+  calendar > grid > label.today {
+    box-shadow: inset 0px -2px #c50ed2; }
+    calendar > grid > label.today:selected {
+      box-shadow: none; }
+  calendar > grid > label:focus {
+    outline-color: #c50ed2;
+    outline-offset: -2px;
+    outline-width: 2px;
+    outline-style: solid; }
+  calendar > grid > label.day-number {
+    padding: 4px; }
+    calendar > grid > label.day-number:selected {
+      border-radius: 3px; }
+    calendar > grid > label.day-number:checked {
+      background-color: alpha(#c50ed2,0.3); }
+  calendar > grid > label.day-number.other-month {
+    color: alpha(currentColor,0.3); }
 
 /*************************
  * Check and Radio Items *
@@ -1596,27 +1658,12 @@ messagedialog, .messagedialog, .dialog {
     color: #C3C7D1;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px; }
-  messagedialog.csd .dialog-action-area button, .messagedialog.csd .dialog-action-area button, .dialog.csd .dialog-action-area button {
-    padding: 7px 11px;
-    border-radius: 0;
-    border-left-style: solid;
-    border-right-style: none;
-    border-bottom-style: none;
-    background-color: transparent;
-    color: #C3C7D1;
-    box-shadow: none; }
-    messagedialog.csd .dialog-action-area button:hover, .messagedialog.csd .dialog-action-area button:hover, .dialog.csd .dialog-action-area button:hover {
-      background-color: rgba(197, 14, 210, 0.9);
-      color: white; }
-    messagedialog.csd .dialog-action-area button:first-child, .messagedialog.csd .dialog-action-area button:first-child, .dialog.csd .dialog-action-area button:first-child {
-      border-left-style: none;
-      border-bottom-left-radius: 4px; }
-    messagedialog.csd .dialog-action-area button:last-child, .messagedialog.csd .dialog-action-area button:last-child, .dialog.csd .dialog-action-area button:last-child {
-      border-bottom-right-radius: 4px; }
-    messagedialog.csd .dialog-action-area button.destructive-action, messagedialog.csd .dialog-action-area button.suggested-action, .messagedialog.csd .dialog-action-area button.destructive-action, .messagedialog.csd .dialog-action-area button.suggested-action, .dialog.csd .dialog-action-area button.destructive-action, .dialog.csd .dialog-action-area button.suggested-action {
-      color: white; }
 
-.messagedialog .message-area {
+.messagedialog .message-area,
+.messagedialog .response-area,
+.dialog .dialog-action-area,
+.alert.floating .response-area,
+.alert.floating .body-scrolled-window {
   padding: 26px; }
 
 filechooser .dialog-action-box {
@@ -2315,6 +2362,26 @@ GraniteWidgetsWelcome {
       .titlebar .linked > button:checked:backdrop label,
       headerbar .linked > button:checked:backdrop label {
         color: #ffe6e6; }
+  .titlebar viewswitcher.wide > button,
+  headerbar viewswitcher.wide > button {
+    color: #8b8b8b;
+    text-shadow: none;
+    box-shadow: none;
+    background: transparent;
+    border: none; }
+    .titlebar viewswitcher.wide > button:active, .titlebar viewswitcher.wide > button:hover,
+    headerbar viewswitcher.wide > button:active,
+    headerbar viewswitcher.wide > button:hover {
+      color: #c50ed2;
+      outline-color: rgba(197, 14, 210, 0.3);
+      background-color: transparent;
+      text-shadow: none; }
+    .titlebar viewswitcher.wide > button:checked,
+    headerbar viewswitcher.wide > button:checked {
+      border-radius: 23px;
+      background: linear-gradient(to right, #c50ed2, #8500f7);
+      box-shadow: 0px 0px 5px rgba(197, 14, 210, 0.98);
+      color: white; }
   .selection-mode.titlebar button:backdrop.flat:active, .selection-mode.titlebar button:backdrop.flat:checked, .selection-mode.titlebar button:backdrop:active, .selection-mode.titlebar button:backdrop:checked,
   headerbar.selection-mode button:backdrop.flat:active,
   headerbar.selection-mode button:backdrop.flat:checked,
@@ -2570,9 +2637,10 @@ button:visited {
  * Lists *
  *********/
 list, listview {
-  color: #C3C7D1;
   background-color: #181b28;
   border-color: #090a0f; }
+  list, list label, listview, listview label {
+    color: #C3C7D1; }
   list:backdrop, listview:backdrop {
     background-color: #1a1d2b;
     border-color: #0a0c11; }
@@ -2602,6 +2670,8 @@ row.activatable.button {
   color: #C3C7D1;
   background-color: #202435;
   text-shadow: none; }
+row .view, row iconview {
+  background-color: transparent; }
 
 columnview > listview > row {
   padding: 0; }
@@ -3007,7 +3077,8 @@ tabbar tabbox {
     border-radius: 0; }
   tabbar tabbox > tab,
   tabbar tabbox > tabboxchild > tab {
-    border-radius: 0; }
+    border-radius: 0;
+    transition: none; }
     tabbar tabbox > tab button.flat,
     tabbar tabbox > tabboxchild > tab button.flat {
       padding: 0;
@@ -3096,56 +3167,66 @@ paned.vertical > separator {
   padding-left: 0;
   padding-right: 0; }
 
-#NautilusPathBar {
+#NautilusPathBar, .pathbar {
   background: transparent;
   margin-top: 7px;
   margin-bottom: 7px; }
   #NautilusPathBar .dim-label, #NautilusPathBar label.separator, #NautilusPathBar .titlebar .subtitle, .titlebar #NautilusPathBar .subtitle,
   #NautilusPathBar headerbar .subtitle,
-  headerbar #NautilusPathBar .subtitle {
+  headerbar #NautilusPathBar .subtitle, .pathbar .dim-label, .pathbar label.separator, .pathbar .titlebar .subtitle, .titlebar .pathbar .subtitle,
+  .pathbar headerbar .subtitle,
+  headerbar .pathbar .subtitle {
     color: transparent;
     margin-right: -5px; }
   #NautilusPathBar button .horizontal .dim-label, #NautilusPathBar button .horizontal label.separator, #NautilusPathBar button .horizontal .titlebar .subtitle, .titlebar #NautilusPathBar button .horizontal .subtitle,
   #NautilusPathBar button .horizontal headerbar .subtitle,
-  headerbar #NautilusPathBar button .horizontal .subtitle {
+  headerbar #NautilusPathBar button .horizontal .subtitle, .pathbar button .horizontal .dim-label, .pathbar button .horizontal label.separator, .pathbar button .horizontal .titlebar .subtitle, .titlebar .pathbar button .horizontal .subtitle,
+  .pathbar button .horizontal headerbar .subtitle,
+  headerbar .pathbar button .horizontal .subtitle {
     color: #C3C7D1;
     padding: 3px 12px;
     margin: 0; }
-  #NautilusPathBar button:hover, #NautilusPathBar button:focus {
+  #NautilusPathBar button:hover, #NautilusPathBar button:focus, .pathbar button:hover, .pathbar button:focus {
     background-color: transparent;
     box-shadow: none; }
     #NautilusPathBar button:hover .dim-label, #NautilusPathBar button:hover label.separator, #NautilusPathBar button:hover .titlebar .subtitle, .titlebar #NautilusPathBar button:hover .subtitle,
     #NautilusPathBar button:hover headerbar .subtitle,
     headerbar #NautilusPathBar button:hover .subtitle, #NautilusPathBar button:focus .dim-label, #NautilusPathBar button:focus label.separator, #NautilusPathBar button:focus .titlebar .subtitle, .titlebar #NautilusPathBar button:focus .subtitle,
     #NautilusPathBar button:focus headerbar .subtitle,
-    headerbar #NautilusPathBar button:focus .subtitle {
+    headerbar #NautilusPathBar button:focus .subtitle, .pathbar button:hover .dim-label, .pathbar button:hover label.separator, .pathbar button:hover .titlebar .subtitle, .titlebar .pathbar button:hover .subtitle,
+    .pathbar button:hover headerbar .subtitle,
+    headerbar .pathbar button:hover .subtitle, .pathbar button:focus .dim-label, .pathbar button:focus label.separator, .pathbar button:focus .titlebar .subtitle, .titlebar .pathbar button:focus .subtitle,
+    .pathbar button:focus headerbar .subtitle,
+    headerbar .pathbar button:focus .subtitle {
       color: #c50ed2; }
-  #NautilusPathBar button:active {
+  #NautilusPathBar button:active, .pathbar button:active {
     background-color: transparent; }
   #NautilusPathBar button > .horizontal > image.dim-label, #NautilusPathBar .titlebar button > .horizontal > image.subtitle, .titlebar #NautilusPathBar button > .horizontal > image.subtitle,
   #NautilusPathBar headerbar button > .horizontal > image.subtitle,
-  headerbar #NautilusPathBar button > .horizontal > image.subtitle {
+  headerbar #NautilusPathBar button > .horizontal > image.subtitle, .pathbar button > .horizontal > image.dim-label, .pathbar .titlebar button > .horizontal > image.subtitle, .titlebar .pathbar button > .horizontal > image.subtitle,
+  .pathbar headerbar button > .horizontal > image.subtitle,
+  headerbar .pathbar button > .horizontal > image.subtitle {
     padding: 3px 0px 3px 12px;
     border-right: none;
     margin-right: -6px; }
-  #NautilusPathBar button {
+  #NautilusPathBar button, .pathbar button {
     background: transparent;
     border: none;
     margin: 0;
     padding: 0; }
-  #NautilusPathBar .current-dir label, #NautilusPathBar .current-dir image {
+  #NautilusPathBar .current-dir label, #NautilusPathBar .current-dir image, .pathbar .current-dir label, .pathbar .current-dir image {
     padding: 6px 12px;
     border-radius: 23px;
     background: linear-gradient(to right, #c50ed2, #8500f7);
     box-shadow: 0px 0px 5px rgba(197, 14, 210, 0.98);
     color: white; }
-  #NautilusPathBar .current-dir image {
+  #NautilusPathBar .current-dir image, .pathbar .current-dir image {
     background: #c50ed2; }
-  #NautilusPathBar button.current-dir:only-child image {
+  #NautilusPathBar button.current-dir:only-child image, .pathbar button.current-dir:only-child image {
     margin-right: -6px;
     padding: 0px 0px 0px 12px;
     border-radius: 23px 0px 0px 23px; }
-  #NautilusPathBar button.current-dir:only-child label {
+  #NautilusPathBar button.current-dir:only-child label, .pathbar button.current-dir:only-child label {
     border-radius: 0px 23px 23px 0px; }
 
 #NautilusQueryEditor {
@@ -4633,40 +4714,56 @@ headerbar.selection-mode button.titlebutton,
   .titlebar.selection-mode button.titlebutton:backdrop {
     -gtk-icon-shadow: none; }
 
-.view:selected:focus, iconview:selected:focus, .view:selected, iconview:selected,
+.history-view:selected:focus, .history-view:selected,
+.view:selected:focus,
+iconview:selected:focus,
+.view:selected,
+iconview:selected,
 textview > text:selected:focus,
 textview > text:selected, textview > text selection:focus, textview > text selection, flowbox flowboxchild:selected, modelbutton.flat:selected,
-.menuitem.button.flat:selected, calendar:selected, spinbutton:not(.vertical) selection:focus, spinbutton.vertical > text selection:focus, spinbutton:not(.vertical) selection, spinbutton.vertical > text selection,
+.menuitem.button.flat:selected, calendar > grid > label.day-number:selected, spinbutton:not(.vertical) selection:focus, spinbutton.vertical > text selection:focus, spinbutton:not(.vertical) selection, spinbutton.vertical > text selection,
 entry selection:focus,
 entry selection, row:selected, columnview.view:selected:focus, columnview.view:selected,
 treeview.view:selected:focus,
 treeview.view:selected {
   background-color: #c50ed2; }
-  row:selected label, label:selected, .selection-mode windowcontrols button, .view:selected:focus, iconview:selected:focus, .view:selected, iconview:selected,
+  row:selected label, label:selected, .selection-mode windowcontrols button, .history-view:selected:focus, .history-view:selected,
+  .view:selected:focus,
+  iconview:selected:focus,
+  .view:selected,
+  iconview:selected,
   textview > text:selected:focus,
   textview > text:selected, textview > text selection:focus, textview > text selection, flowbox flowboxchild:selected, modelbutton.flat:selected,
-  .menuitem.button.flat:selected, calendar:selected, spinbutton:not(.vertical) selection:focus, spinbutton.vertical > text selection:focus, spinbutton:not(.vertical) selection, spinbutton.vertical > text selection,
+  .menuitem.button.flat:selected, calendar > grid > label.day-number:selected, spinbutton:not(.vertical) selection:focus, spinbutton.vertical > text selection:focus, spinbutton:not(.vertical) selection, spinbutton.vertical > text selection,
   entry selection:focus,
   entry selection, row:selected, columnview.view:selected:focus, columnview.view:selected,
   treeview.view:selected:focus,
   treeview.view:selected {
     color: #fefefe;
     font-weight: normal; }
-    row:selected label:disabled, label:disabled:selected, .selection-mode windowcontrols button:disabled, iconview:disabled:selected:focus, .view:disabled:selected, iconview:disabled:selected,
+    row:selected label:disabled, label:disabled:selected, .selection-mode windowcontrols button:disabled, .history-view:disabled:selected,
+    iconview:disabled:selected:focus,
+    .view:disabled:selected,
+    iconview:disabled:selected,
     textview > text:disabled:selected:focus,
     textview > text:disabled:selected, textview > text selection:disabled, flowbox flowboxchild:disabled:selected, label:disabled selection, modelbutton.flat:disabled:selected,
-    .menuitem.button.flat:disabled:selected, calendar:disabled:selected, spinbutton:not(.vertical) selection:disabled, spinbutton.vertical > text selection:disabled,
+    .menuitem.button.flat:disabled:selected, calendar > grid > label.day-number:disabled:selected, spinbutton:not(.vertical) selection:disabled, spinbutton.vertical > text selection:disabled,
     entry selection:disabled, row:disabled:selected {
       color: #e286e8; }
-    row:selected label:backdrop, label:backdrop:selected, .selection-mode windowcontrols button:backdrop, iconview:backdrop:selected:focus, .view:backdrop:selected, iconview:backdrop:selected,
+    row:selected label:backdrop, label:backdrop:selected, .selection-mode windowcontrols button:backdrop, .history-view:backdrop:selected,
+    iconview:backdrop:selected:focus,
+    .view:backdrop:selected,
+    iconview:backdrop:selected,
     textview > text:backdrop:selected:focus,
     textview > text:backdrop:selected, textview > text selection:backdrop, flowbox flowboxchild:backdrop:selected, label:backdrop selection, modelbutton.flat:backdrop:selected,
-    .menuitem.button.flat:backdrop:selected, calendar:backdrop:selected, spinbutton:not(.vertical) selection:backdrop, spinbutton.vertical > text selection:backdrop,
+    .menuitem.button.flat:backdrop:selected, calendar > grid > label.day-number:backdrop:selected, spinbutton:not(.vertical) selection:backdrop, spinbutton.vertical > text selection:backdrop,
     entry selection:backdrop, row:backdrop:selected {
       color: rgba(254, 254, 254, 0.5); }
-      row:selected label:backdrop:disabled, label:backdrop:disabled:selected, .selection-mode windowcontrols button:backdrop:disabled, .view:backdrop:disabled:selected, iconview:backdrop:disabled:selected,
+      row:selected label:backdrop:disabled, label:backdrop:disabled:selected, .selection-mode windowcontrols button:backdrop:disabled, .history-view:backdrop:disabled:selected,
+      .view:backdrop:disabled:selected,
+      iconview:backdrop:disabled:selected,
       textview > text:backdrop:disabled:selected, textview > text selection:backdrop:disabled, flowbox flowboxchild:backdrop:disabled:selected, label:disabled selection:backdrop, label:backdrop selection:disabled, modelbutton.flat:backdrop:disabled:selected,
-      .menuitem.button.flat:backdrop:disabled:selected, calendar:backdrop:disabled:selected, spinbutton:not(.vertical) selection:backdrop:disabled, spinbutton.vertical > text selection:backdrop:disabled,
+      .menuitem.button.flat:backdrop:disabled:selected, calendar > grid > label.day-number:backdrop:disabled:selected, spinbutton:not(.vertical) selection:backdrop:disabled, spinbutton.vertical > text selection:backdrop:disabled,
       entry selection:backdrop:disabled, row:backdrop:disabled:selected {
         color: rgba(204, 44, 216, 0.85); }
 
@@ -5666,6 +5763,58 @@ window.background.budgie-settings-window.csd > box.horizontal > stack > scrolled
   background: #161925;
   color: #C3C7D1; }
 
+/*******************
+ * Calendar events *
+********************/
+.color-light.timed label, .color-light .event-popover label {
+  color: #C3C7D1;
+  opacity: 1; }
+.color-light label {
+  color: #C3C7D1;
+  opacity: 1; }
+
+/*******************
+ * Calendar sidebar *
+********************/
+datechooser .flat {
+  color: #8b8b8b;
+  text-shadow: none;
+  box-shadow: none;
+  background: transparent;
+  border: none; }
+  datechooser .flat:hover, datechooser .flat:active, datechooser .flat:checked {
+    color: #fefefe;
+    outline-color: rgba(254, 254, 254, 0.3);
+    background-color: #c50ed2;
+    text-shadow: none; }
+datechooser .circular.day.text-button {
+  padding: 6px;
+  border-radius: 50%;
+  min-height: 22px;
+  min-width: 22px;
+  border: none;
+  color: #C3C7D1; }
+  datechooser .circular.day.text-button.flat.other-month, datechooser .circular.day.text-button.flat.non-workday {
+    color: #6d707b; }
+  datechooser .circular.day.text-button.today {
+    color: #c50ed2; }
+  datechooser .circular.day.text-button:active, datechooser .circular.day.text-button:selected {
+    color: #fefefe;
+    outline-color: rgba(254, 254, 254, 0.3);
+    background-color: #c50ed2;
+    text-shadow: none;
+    font-weight: bold; }
+
+agenda-view list.background {
+  padding: 8px; }
+  agenda-view list.background .caption-heading, agenda-view list.background .dim-label.no-events, agenda-view list.background label.no-events.separator, agenda-view list.background .titlebar .no-events.subtitle, .titlebar agenda-view list.background .no-events.subtitle,
+  agenda-view list.background headerbar .no-events.subtitle,
+  headerbar agenda-view list.background .no-events.subtitle {
+    color: #C3C7D1; }
+
+datechooser, datechooser:backdrop, agenda-view list.background, agenda-view list.background:backdrop {
+  background-color: #0c0e14; }
+
 .xfce4-panel.panel {
   background-color: #181b28;
   text-shadow: none;
@@ -6424,5 +6573,32 @@ ConversationListView .view .cell, ConversationListView iconview .cell {
     border-radius: 0;
     text-shadow: none;
     box-shadow: none; }
+
+.colorpad {
+  color: @colorpad_fg_color; }
+  .colorpad, .colorpad:backdrop, .colorpad:hover, .colorpad:hover:backdrop, .colorpad:active, .colorpad:active:backdrop, .colorpad:checked, .colorpad:checked:backdrop {
+    background-color: @colorpad_color; }
+  .colorpad:hover {
+    filter: brightness(93%); }
+  .colorpad:active {
+    filter: brightness(86%); }
+  .colorpad:checked {
+    filter: brightness(100%);
+    box-shadow: 0px 0px 0px 1.5px #c50ed2, inset 0px -3px 0px 0px @colorpad_fg_color; }
+
+.colorsetter {
+  color: colorsetter_fg_color; }
+  .colorsetter, .colorsetter:backdrop, .colorsetter:hover, .colorsetter:hover:backdrop, .colorsetter:active, .colorsetter:active:backdrop, .colorsetter:checked, .colorsetter:checked:backdrop {
+    background-color: @colorsetter_color; }
+  .colorsetter:hover {
+    filter: brightness(93%); }
+  .colorsetter:active {
+    filter: brightness(86%); }
+  .colorsetter:checked {
+    filter: brightness(100%); }
+
+.overlay_toolbar, .overlay_toolbar_scrollable {
+  background: #212638;
+  padding: 10px; }
 
 /*# sourceMappingURL=gtk-dark.css.map */

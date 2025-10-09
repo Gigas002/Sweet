@@ -2,7 +2,7 @@
  * Lists *
  *********/
 list, listview {
-  color: $text_color;
+  &, label { color: $text_color; }
   background-color: $base_color;
   border-color: $borders_color;
 
@@ -47,6 +47,8 @@ row {
 
     &.button { @include button(normal); }
   }
+
+  .view { background-color: transparent; }
 
   &:selected { @extend %selected_items; }
 }
