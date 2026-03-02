@@ -1,5 +1,5 @@
 resize_algorithm = bilinear
-hotspot_x = 0.17
-hotspot_y = 1.21
+hotspot_x = 0.125
+hotspot_y = 0.90625
 
 define_size = 0, pencil.svg

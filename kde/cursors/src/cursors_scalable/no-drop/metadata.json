@@ -1,8 +1,8 @@
 [
     {
         "filename": "no-drop.svg",
-        "hotspot_x": 0.17,
-        "hotspot_y": 0.17,
+        "hotspot_x": 0.125,
+        "hotspot_y": 0.125,
         "nominal_size": 24
     }
 ]

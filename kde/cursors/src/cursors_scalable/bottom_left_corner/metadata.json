@@ -1,8 +1,8 @@
 [
     {
         "filename": "bottom_left_corner.svg",
-        "hotspot_x": 0.17,
-        "hotspot_y": 1.08,
+        "hotspot_x": 0.125,
+        "hotspot_y": 0.8125,
         "nominal_size": 24
     }
 ]

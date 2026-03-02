@@ -1,6 +1,6 @@
 resize_algorithm = bilinear
-hotspot_x = 0.17
-hotspot_y = 0.17
+hotspot_x = 0.125
+hotspot_y = 0.125
 
 define_size = 0, help.svg
 
